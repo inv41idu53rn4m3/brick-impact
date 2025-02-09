@@ -1,0 +1,127 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1x1pvyj5xeen"]
+
+[ext_resource type="Script" path="res://controls_menu.gd" id="1_6xvfl"]
+
+[node name="ControlsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -120.0
+offset_right = 160.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6xvfl")
+
+[node name="JumpLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_right = 65.0
+offset_bottom = 32.0
+text = "Jump"
+
+[node name="LeftLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 64.0
+offset_right = 65.0
+offset_bottom = 96.0
+text = "Left"
+
+[node name="RightLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 128.0
+offset_right = 65.0
+offset_bottom = 160.0
+text = "Right"
+
+[node name="AddJumpButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 152.0
+offset_bottom = 56.0
+text = "Add"
+
+[node name="ResetJumpButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 24.0
+offset_right = 296.0
+offset_bottom = 56.0
+text = "Reset"
+
+[node name="AddLeftButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 88.0
+offset_right = 152.0
+offset_bottom = 120.0
+text = "Add"
+
+[node name="ResetLeftButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 88.0
+offset_right = 296.0
+offset_bottom = 120.0
+text = "Reset"
+
+[node name="AddRightButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 152.0
+offset_right = 152.0
+offset_bottom = 184.0
+text = "Add"
+
+[node name="ResetRightButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 152.0
+offset_right = 296.0
+offset_bottom = 184.0
+text = "Reset"
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 200.0
+offset_right = 296.0
+offset_bottom = 232.0
+text = "Back"
+
+[node name="InputWaitOverlay" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="InputWaitOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InputPrompt" type="Label" parent="InputWaitOverlay/CenterContainer"]
+layout_mode = 2
+text = "Press a key"
+
+[connection signal="button_down" from="AddJumpButton" to="." method="_on_add_jump_button_down"]
+[connection signal="button_down" from="ResetJumpButton" to="." method="_on_reset_jump_button_down"]
+[connection signal="button_down" from="AddLeftButton" to="." method="_on_add_left_button_down"]
+[connection signal="button_down" from="ResetLeftButton" to="." method="_on_reset_left_button_down"]
+[connection signal="button_down" from="AddRightButton" to="." method="_on_add_right_button_down"]
+[connection signal="button_down" from="ResetRightButton" to="." method="_on_reset_right_button_down"]
+[connection signal="button_down" from="BackButton" to="." method="_on_back_button_down"]
+[connection signal="gui_input" from="InputWaitOverlay" to="." method="_gui_input"]

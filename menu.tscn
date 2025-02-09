@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxququrd2nddl"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_73kh8"]
+[ext_resource type="PackedScene" uid="uid://7qd14s1twvei" path="res://connection_menu.tscn" id="2_i016b"]
+[ext_resource type="PackedScene" uid="uid://c1x1pvyj5xeen" path="res://controls_menu.tscn" id="3_anh86"]
+
+[node name="Menu" type="Node2D"]
+position = Vector2(0, 389)
+script = ExtResource("1_73kh8")
+
+[node name="ConnectionMenu" parent="." instance=ExtResource("2_i016b")]
+
+[node name="ControlsMenu" parent="." instance=ExtResource("3_anh86")]
+visible = false
+
+[connection signal="controls_requested" from="ConnectionMenu" to="." method="_on_connection_menu_controls_requested"]
+[connection signal="close_requested" from="ControlsMenu" to="." method="_on_controls_menu_close_requested"]

@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://boho0wosve50n"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_pwu0y"]
+[ext_resource type="Texture2D" uid="uid://c4xp2j5e5lr06" path="res://icon.svg" id="1_rdbh0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ancfj"]
+size = Vector2(14, 14)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5f73l"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_88sbe"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Character" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 2
+script = ExtResource("1_pwu0y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.119058, 0.119058)
+texture = ExtResource("1_rdbh0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ancfj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(7, 7)
+scale = Vector2(14, 14)
+texture = SubResource("PlaceholderTexture2D_5f73l")
+
+[node name="Nickname" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -32.0
+offset_right = 64.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "test"
+horizontal_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_88sbe")
