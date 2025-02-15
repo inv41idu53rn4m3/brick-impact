@@ -124,4 +124,3 @@ text = "Press a key"
 [connection signal="button_down" from="AddRightButton" to="." method="_on_add_right_button_down"]
 [connection signal="button_down" from="ResetRightButton" to="." method="_on_reset_right_button_down"]
 [connection signal="button_down" from="BackButton" to="." method="_on_back_button_down"]
-[connection signal="gui_input" from="InputWaitOverlay" to="." method="_gui_input"]

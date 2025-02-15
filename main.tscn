@@ -47,12 +47,6 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAHAAEAAAAAAAEAAAABAAEAAAAAAAIAAAAFAAA
 tile_set = ExtResource("2_h8a88")
 navigation_enabled = false
 
-[node name="TileMap" type="TileMap" parent="."]
-process_mode = 4
-visible = false
-tile_set = ExtResource("2_h8a88")
-format = 2
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 389)
 process_callback = 0
