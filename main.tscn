@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=4 uid="uid://f51tj2fs63fg"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_vctmf"]
+[ext_resource type="Script" uid="uid://d0ku0qipfiljo" path="res://main.gd" id="1_vctmf"]
 [ext_resource type="TileSet" uid="uid://dlh6cv3mcqckq" path="res://brick_tileset.tres" id="2_h8a88"]
-[ext_resource type="Script" path="res://camera.gd" id="3_qh25b"]
+[ext_resource type="Script" uid="uid://ljt4gb2wnl5o" path="res://camera.gd" id="3_qh25b"]
 
 [sub_resource type="GDScript" id="GDScript_wkit6"]
 script/source = "extends Area2D
