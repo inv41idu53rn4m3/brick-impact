@@ -58,7 +58,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if (not multiplayer.has_multiplayer_peer()
-			or not multiplayer.multiplayer_peer.get_connection_status() == 2
+			or not multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
 			or control_id != multiplayer.get_unique_id()):
 		return
 	

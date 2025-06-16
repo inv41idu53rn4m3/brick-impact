@@ -74,7 +74,7 @@ func _exit_tree() -> void:
 		camera.snap()
 	
 	# Broadcast player spawn to clients
-	if multiplayer.get_unique_id() == 1:
+	if multiplayer.is_server():
 		spawn_player.rpc(id, nickname, skin)
 
 func destroy_player(player_record: PlayerRecord) -> void:
