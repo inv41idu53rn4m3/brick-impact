@@ -53,7 +53,7 @@ jobs:
         run: |
           mkdir -v -p build/linux-x86_64-desktop
           EXPORT_DIR="$(readlink -f build)"
-          godot --headless --verbose --export-release "Linux x86_64 Desktop" "$EXPORT_DIR/linux/$EXPORT_NAME.x86_64"
+          godot --headless --verbose --export-release "Linux x86_64 Desktop" "$EXPORT_DIR/linux-x86_64-desktop/$EXPORT_NAME.x86_64"
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -80,7 +80,7 @@ jobs:
         run: |
           mkdir -v -p build/linux-aarch64-server
           EXPORT_DIR="$(readlink -f build)"
-          godot --headless --verbose --export-release "Linux aarch64 Dedicated Server" "$EXPORT_DIR/linux/$EXPORT_NAME-server.aarch64"
+          godot --headless --verbose --export-release "Linux aarch64 Dedicated Server" "$EXPORT_DIR/linux-aarch64-server/$EXPORT_NAME-server.aarch64"
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
