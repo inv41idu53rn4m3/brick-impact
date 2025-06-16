@@ -38,7 +38,7 @@ func _ready() -> void:
 	multiplayer.server_disconnected.connect(server_disconnected)
 	
 	if not is_dedicated_server:
-		menu = preload("res://menu.tscn").instantiate()
+		menu = preload("res://scenes/menu.tscn").instantiate()
 		self.add_child(menu)
 		camera.remote_transform.remote_path = menu.get_path()
 		menu.connection_menu.host_requested.connect(host_game)
@@ -56,7 +56,7 @@ func _exit_tree() -> void:
 
 @rpc("any_peer", "reliable") func spawn_player(id: int, nickname: String, skin: String) -> void:
 	# Spawn the player node
-	var player: Player = preload("res://player.tscn").instantiate()
+	var player: Player = preload("res://scenes/player.tscn").instantiate()
 	player.position = ($SpawnPoint as Node2D).position
 	player.control_id = id
 	player.nickname = nickname

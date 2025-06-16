@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c1x1pvyj5xeen"]
 
-[ext_resource type="Script" uid="uid://bhl7pgn7xdry7" path="res://controls_menu.gd" id="1_6xvfl"]
+[ext_resource type="Script" uid="uid://bhl7pgn7xdry7" path="res://src/controls_menu.gd" id="1_kdy74"]
 
 [node name="ControlsMenu" type="Control"]
 layout_mode = 3
@@ -15,7 +15,7 @@ offset_right = 160.0
 offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_6xvfl")
+script = ExtResource("1_kdy74")
 
 [node name="JumpLabel" type="Label" parent="."]
 layout_mode = 0
