@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 var control_id: int
 var nickname: String
-var skin: String
+var skin: PackedByteArray
 
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 @onready var nick_field: Label = $Nickname
@@ -38,9 +38,8 @@ func _ready() -> void:
 	else:
 		nick_field.text = nickname
 	
-	if skin != "":
-		var skin_data := Marshalls.base64_to_raw(skin)
-		var skin_image := Image.create_from_data(14, 14, false, Image.FORMAT_RGBA8, skin_data)
+	if not skin.is_empty():
+		var skin_image := Image.create_from_data(16, 16, false, Image.FORMAT_RGBA8, skin)
 		sprite.texture = ImageTexture.create_from_image(skin_image)
 		sprite.scale = Vector2(1, 1)
 

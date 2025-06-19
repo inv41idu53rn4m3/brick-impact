@@ -39,13 +39,12 @@ static func load_controls() -> void:
 			event.physical_keycode = key
 			InputMap.action_add_event(control_type, event)
 
-static func load_player_skin() -> String:
+static func load_player_skin() -> PackedByteArray:
 	if not FileAccess.file_exists(PLAYER_SKIN_FILE_PATH):
-		return ""
+		return PackedByteArray()
 	
 	var skin_image := Image.load_from_file(PLAYER_SKIN_FILE_PATH)
-	skin_image.resize(14, 14)
+	skin_image.resize(16, 16)
 	skin_image.convert(Image.FORMAT_RGBA8)
 	
-	var skin_data: PackedByteArray = skin_image.data["data"]
-	return Marshalls.raw_to_base64(skin_data)
+	return skin_image.data["data"]

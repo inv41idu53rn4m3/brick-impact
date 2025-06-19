@@ -54,7 +54,7 @@ func _exit_tree() -> void:
 	quit()
 
 
-@rpc("any_peer", "reliable") func spawn_player(id: int, nickname: String, skin: String) -> void:
+@rpc("any_peer", "reliable") func spawn_player(id: int, nickname: String, skin: PackedByteArray) -> void:
 	# Spawn the player node
 	var player: Player = preload("res://scenes/player.tscn").instantiate()
 	player.position = ($SpawnPoint as Node2D).position
