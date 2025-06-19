@@ -9,14 +9,7 @@ const PORT = 42069
 var menu: MenuHandler
 var is_dedicated_server: bool = false
 
-class PlayerRecord:
-	var nickname: String
-	var node: Player
-	func _init(nickname_in: String, node_in: Player) -> void:
-		nickname = nickname_in
-		node = node_in
-
-var players := {} # Dictionary[int, PlayerRecord]
+var players: Dictionary[int, Player] = {}
 
 
 func _init() -> void:
@@ -65,7 +58,7 @@ func _exit_tree() -> void:
 	$Players.add_child(player)
 	
 	# Keep track of connected players
-	players[id] = PlayerRecord.new(nickname, player)
+	players[id] = player
 	
 	# Focus camera on the controlled character
 	if multiplayer.get_unique_id() == id:
@@ -77,12 +70,12 @@ func _exit_tree() -> void:
 	if multiplayer.is_server():
 		spawn_player.rpc(id, nickname, skin)
 
-func destroy_player(player_record: PlayerRecord) -> void:
+func destroy_player(player: Player) -> void:
 	# Tranquilize the player to appease the engine
-	player_record.node.set_physics_process(false)
-	player_record.node.set_process(false)
+	player.set_physics_process(false)
+	player.set_process(false)
 	# Actually remove player
-	player_record.node.queue_free()
+	player.queue_free()
 
 func reset_scene() -> void:
 	# Reset camera
@@ -92,8 +85,7 @@ func reset_scene() -> void:
 	camera.snap()
 	# Remove all player nodes
 	for player: int in players:
-		var player_record: PlayerRecord = players[player]
-		destroy_player(player_record)
+		destroy_player(players[player])
 	players.clear()
 	# Reset connection/menu
 	multiplayer.multiplayer_peer = null
@@ -145,11 +137,10 @@ func peer_connected(id: int) -> void:
 		return
 	
 	for player: int in players:
-		spawn_player.rpc_id(id, player, players[player].nickname, players[player].node.skin)
+		spawn_player.rpc_id(id, player, players[player].nickname, players[player].skin)
 
 func peer_disconnected(id: int) -> void:
-	var record: PlayerRecord = players[id]
-	destroy_player(record)
+	destroy_player(players[id])
 	players.erase(id)
 
 func connected_to_server() -> void:
