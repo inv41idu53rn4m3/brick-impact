@@ -39,6 +39,13 @@ window/vsync/vsync_mode=0
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[gui]
+
+theme/custom_font="uid://bqi7ry67q8uo1"
+theme/default_font_antialiasing=0
+theme/default_font_hinting=0
+theme/default_font_subpixel_positioning=0
+
 [input]
 
 jump={
