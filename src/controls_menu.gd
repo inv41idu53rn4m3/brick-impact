@@ -1,8 +1,9 @@
+class_name ControlsMenu
 extends Control
 
-@onready var jump_label: Label = $JumpLabel
-@onready var left_label: Label = $LeftLabel
-@onready var right_label: Label = $RightLabel
+@onready var jump_label: Label = $MarginContainer/VBoxContainer/JumpLabel
+@onready var left_label: Label = $MarginContainer/VBoxContainer/LeftLabel
+@onready var right_label: Label = $MarginContainer/VBoxContainer/RightLabel
 @onready var input_wait_overlay: Panel = $InputWaitOverlay
 
 signal close_requested()
