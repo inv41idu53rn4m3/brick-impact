@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqaqnl6acg136"]
+
+[ext_resource type="Script" uid="uid://qjyqsg4g2q12" path="res://src/console_menu.gd" id="1_x5wqs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x5wqs"]
+
+[node name="Console" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 240.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_x5wqs")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.6
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="ConsoleHistory" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 3
+scroll_active = false
+scroll_following = true
+
+[node name="TextInput" type="LineEdit" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_x5wqs")
+keep_editing_on_text_submit = true
+context_menu_enabled = false
+emoji_menu_enabled = false
+flat = true
+caret_blink = true
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="text_submitted" from="PanelContainer/VBoxContainer/TextInput" to="." method="_on_text_submitted"]
