@@ -5,6 +5,11 @@ extends Control
 @onready var text_input: LineEdit = $PanelContainer/VBoxContainer/TextInput
 
 
+func _on_text_input_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("exit"):
+		accept_event()
+		visible = false
+
 func _on_text_submitted(new_text: String) -> void:
 	console_history.add_text("> " + new_text + "\n")
 	console_history.add_text(Console.exec_command(new_text))

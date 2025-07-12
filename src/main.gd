@@ -129,6 +129,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		else:
 			# or simply quit game
 			quit()
+	elif event.is_action_pressed("console"):
+		menu.console.visible = true
 
 
 ### Networking related callbacks ###

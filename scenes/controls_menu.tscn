@@ -80,6 +80,24 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Reset"
 
+[node name="ConsoleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Console"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AddConsoleButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add"
+
+[node name="ResetConsoleButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reset"
+
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back"
@@ -105,10 +123,12 @@ grow_vertical = 2
 layout_mode = 2
 text = "Press a key"
 
-[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer/AddJumpButton" to="." method="_on_add_jump_button_down"]
-[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer/ResetJumpButton" to="." method="_on_reset_jump_button_down"]
-[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer2/AddLeftButton" to="." method="_on_add_left_button_down"]
-[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer2/ResetLeftButton" to="." method="_on_reset_left_button_down"]
-[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer3/AddRightButton" to="." method="_on_add_right_button_down"]
-[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer3/ResetRightButton" to="." method="_on_reset_right_button_down"]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer/AddJumpButton" to="." method="_on_add_button_down" binds= ["jump"]]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer/ResetJumpButton" to="." method="_on_reset_button_down" binds= ["jump"]]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer2/AddLeftButton" to="." method="_on_add_button_down" binds= ["left"]]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer2/ResetLeftButton" to="." method="_on_reset_button_down" binds= ["left"]]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer3/AddRightButton" to="." method="_on_add_button_down" binds= ["right"]]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer3/ResetRightButton" to="." method="_on_reset_button_down" binds= ["right"]]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer4/AddConsoleButton" to="." method="_on_add_button_down" binds= ["console"]]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/HBoxContainer4/ResetConsoleButton" to="." method="_on_reset_button_down" binds= ["console"]]
 [connection signal="button_down" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_down"]

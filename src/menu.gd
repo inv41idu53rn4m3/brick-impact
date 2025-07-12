@@ -3,6 +3,7 @@ extends Node2D
 
 @onready var connection_menu: ConnectionMenu = $ConnectionMenu
 @onready var controls_menu: Control = $ControlsMenu
+@onready var console: ConsoleMenu = $Console
 
 
 func _on_connection_menu_controls_requested() -> void:

@@ -47,4 +47,5 @@ flat = true
 caret_blink = true
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="gui_input" from="PanelContainer/VBoxContainer/TextInput" to="." method="_on_text_input_gui_input"]
 [connection signal="text_submitted" from="PanelContainer/VBoxContainer/TextInput" to="." method="_on_text_submitted"]

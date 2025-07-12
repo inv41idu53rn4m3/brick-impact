@@ -4,17 +4,19 @@ extends Control
 @onready var jump_label: Label = $MarginContainer/VBoxContainer/JumpLabel
 @onready var left_label: Label = $MarginContainer/VBoxContainer/LeftLabel
 @onready var right_label: Label = $MarginContainer/VBoxContainer/RightLabel
+@onready var console_label: Label = $MarginContainer/VBoxContainer/ConsoleLabel
 @onready var input_wait_overlay: Panel = $InputWaitOverlay
 
 signal close_requested()
 
 # it's a hair ugly but it's convenient
-var label_definitions: Dictionary = {
+var label_definitions: Dictionary[String, Dictionary] = {
 	jump = {title = "Jump: "},
 	left = {title = "Left: "},
-	right = {title = "Right: "}
+	right = {title = "Right: "},
+	console = {title = "Console: "}
 }
-# "jump", "left", "right", or empty string (no I will not Enum)
+# "jump", "left", "right", "console", or empty string (no I will not Enum)
 var input_listen_mode: String = ""
 
 
@@ -22,9 +24,9 @@ func _ready() -> void:
 	label_definitions["jump"]["label"] = jump_label
 	label_definitions["left"]["label"] = left_label
 	label_definitions["right"]["label"] = right_label
-	update_label("jump")
-	update_label("left")
-	update_label("right")
+	label_definitions["console"]["label"] = console_label
+	for key: String in label_definitions:
+		update_label(key)
 
 
 func _input(event: InputEvent) -> void:
@@ -64,30 +66,13 @@ func update_label(action: StringName) -> void:
 	label_definitions[action].label.text = label_definitions[action].title + ", ".join(key_labels)
 
 
-func _on_add_jump_button_down() -> void:
-	input_listen_mode = "jump"
+func _on_add_button_down(action: String) -> void:
+	input_listen_mode = action
 	input_wait_overlay.visible = true
 
-func _on_add_left_button_down() -> void:
-	input_listen_mode = "left"
-	input_wait_overlay.visible = true
-
-func _on_add_right_button_down() -> void:
-	input_listen_mode = "right"
-	input_wait_overlay.visible = true
-
-
-func _on_reset_jump_button_down() -> void:
-	InputMap.action_erase_events("jump")
-	update_label("jump")
-
-func _on_reset_left_button_down() -> void:
-	InputMap.action_erase_events("left")
-	update_label("left")
-
-func _on_reset_right_button_down() -> void:
-	InputMap.action_erase_events("right")
-	update_label("right")
+func _on_reset_button_down(action: String) -> void:
+	InputMap.action_erase_events(action)
+	update_label(action)
 
 
 func _on_back_button_down() -> void:
