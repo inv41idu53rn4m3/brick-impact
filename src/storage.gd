@@ -5,10 +5,11 @@ const CONTROLS_FILE_PATH = "user://controls.json"
 const PLAYER_SKIN_FILE_PATH = "user://skin.png"
 
 static func save_controls() -> void:
-	var controls := {}
+	var controls: Dictionary[String, Array] = {}
 	controls["jump"] = ([] as Array[Key])
 	controls["left"] = ([] as Array[Key])
 	controls["right"] = ([] as Array[Key])
+	controls["console"] = ([] as Array[Key])
 	
 	for control_type: StringName in controls:
 		for bind: InputEventKey in InputMap.action_get_events(control_type):
