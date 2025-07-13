@@ -10,7 +10,7 @@ enum ArgType {
 }
 
 class CommandInfo:
-	var callable: Callable
+	var callable: Callable # Should always return String
 	var help: String
 	var arg_types: Array[ArgType]
 	var defaults: Array[Variant]
@@ -21,7 +21,6 @@ class CommandInfo:
 		self.arg_types = arg_types
 		self.defaults = defaults
 
-# Dictionary[String, Callable[Array[String], String]]
 static var commands: Dictionary[String, CommandInfo] = {
 	"echo": CommandInfo.new(
 		func (args: Array[String]) -> String: return " ".join(args),
@@ -51,11 +50,13 @@ static func exec_command(command: String) -> String:
 static func parse_typed_args(args: Array[String], arg_types: Array[ArgType]) -> Dictionary:
 	var results: Array[Variant] = []
 	var index := 0
+	# GDScript doesn't support proper nested functions so this is what we get
 	var type_error := func(value: String, type: String) -> Dictionary[String, String]:
 		return {"error": "\"%s\" is not a valid %s!\n" % [value, type]}
 	while index < mini(args.size(), arg_types.size()):
 		match arg_types[index]:
 			ArgType.STRING:
+				# Strings are always valid!
 				results.append(args[index])
 			ArgType.BOOL:
 				match args[index]:
@@ -73,6 +74,7 @@ static func parse_typed_args(args: Array[String], arg_types: Array[ArgType]) -> 
 				else:
 					return type_error.call(args[index], "float")
 			ArgType.STRARR:
+				# Sometimes you just need all the remaining arguments
 				results.append(args.slice(index))
 				break
 		index += 1
@@ -80,23 +82,23 @@ static func parse_typed_args(args: Array[String], arg_types: Array[ArgType]) -> 
 
 static func split_args(command: String) -> Array[String]:
 	var args: Array[String] = []
-	var quote := false
-	var escape := false
-	var next_arg := true
+	var in_quote := false
+	var should_escape := false
+	var split_next_arg := true
 	for chr in command:
-		if not escape:
+		if not should_escape:
 			if chr == "\\":
-				escape = true
+				should_escape = true
 				continue
 			if chr == "\"":
-				quote = not quote
+				in_quote = not in_quote
 				continue
-			if chr == " " and not quote:
-				next_arg = true
+			if chr == " " and not in_quote:
+				split_next_arg = true
 				continue
-		escape = false
-		if next_arg:
+		should_escape = false
+		if split_next_arg: # Only start a new word when the character is normal text
 			args.append("")
-			next_arg = false
+			split_next_arg = false
 		args[args.size() - 1] += chr
 	return args
