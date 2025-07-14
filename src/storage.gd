@@ -1,8 +1,28 @@
 class_name Storage
 extends RefCounted
 
+const SETTINGS_FILE_PATH = "user://settings.json"
 const CONTROLS_FILE_PATH = "user://controls.json"
 const PLAYER_SKIN_FILE_PATH = "user://skin.png"
+
+static var settings: Settings
+
+static func save_settings() -> void:
+	var file := FileAccess.open(SETTINGS_FILE_PATH, FileAccess.WRITE)
+	if not file:
+		#TODO: Warning in console!
+		return
+	file.store_line(settings.to_string())
+	file.close()
+
+static func load_settings() -> void:
+	var file := FileAccess.open(SETTINGS_FILE_PATH, FileAccess.READ)
+	if not file:
+		#TODO: Warning in console!
+		settings = Settings.new()
+		return
+	settings = Settings.new(file.get_as_text())
+	file.close()
 
 static func save_controls() -> void:
 	var controls: Dictionary[String, Array] = {}

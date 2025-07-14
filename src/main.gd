@@ -19,6 +19,7 @@ func _init() -> void:
 		is_dedicated_server = true
 	else:
 		Storage.load_controls()
+	Storage.load_settings()
 
 func _ready() -> void:
 	if not is_dedicated_server:
@@ -95,6 +96,7 @@ func reset_scene() -> void:
 func quit() -> void:
 	if not is_dedicated_server:
 		Storage.save_controls()
+	Storage.save_settings()
 	get_tree().quit()
 
 func host_game(nickname: String) -> void:
