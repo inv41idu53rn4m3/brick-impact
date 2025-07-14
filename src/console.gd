@@ -21,6 +21,16 @@ class CommandInfo:
 		self.arg_types = arg_types
 		self.defaults = defaults
 
+class ColoredText:
+	var text: String
+	var color: Color
+	@warning_ignore("shadowed_variable")
+	func _init(text: String = "", color: Color = Color.WHITE) -> void:
+		self.text = text
+		self.color = color
+
+static var color_tag_pattern := RegEx.create_from_string("(\\[?)\\[([0-9a-fA-F]{3})\\](\\]?)")
+
 static var commands: Dictionary[String, CommandInfo] = {
 	"echo": CommandInfo.new(
 		func (args: Array[String]) -> String: return " ".join(args),
@@ -102,3 +112,46 @@ static func split_args(command: String) -> Array[String]:
 			split_next_arg = false
 		args[args.size() - 1] += chr
 	return args
+
+static func parse_color_tags(text: String) -> Array[ColoredText]:
+	var results: Array[ColoredText] = []
+	# The first segment starts at the beginning of the string regardless of tag
+	results.append(ColoredText.new())
+	
+	var index := 0
+	var res_idx := 0
+	var tags := color_tag_pattern.search_all(text)
+	for tag in tags:
+		# tag.strings ~= [ "[[fff]]", "[", "fff", "]" ]
+		if tag.strings[1] == "[" and tag.strings[3] == "]":
+			# A colour tag is escaped if it's in double square brackets [[fff]]
+			results[res_idx].text += text.substr(index, tag.get_start() - index)
+			results[res_idx].text += "[%s]" % tag.strings[2]
+			index = tag.get_end()
+			continue
+		
+		# Normal un-escaped tags
+		results[res_idx].text += text.substr(index, tag.get_start(2) - 1 - index)
+		index = tag.get_end(2) + 1
+		res_idx += 1
+		
+		var color_int := tag.strings[2].hex_to_int()
+		var r: float = (color_int >> 8 & 0xf) / 15.0
+		var g: float = (color_int >> 4 & 0xf) / 15.0
+		var b: float = (color_int >> 0 & 0xf) / 15.0
+		
+		results.append(ColoredText.new("", Color(r, g, b)))
+	# Everything past the last tag gets added to the final segment
+	results[res_idx].text += text.substr(index)
+	
+	results = results.filter(
+		func (segment: ColoredText) -> bool:
+			return segment.text != ""
+	)
+	return results
+
+static func strip_color_tags(text: String) -> String:
+	var result := ""
+	for segment in parse_color_tags(text):
+		result += segment.text
+	return result

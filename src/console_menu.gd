@@ -11,8 +11,13 @@ func _on_text_input_gui_input(event: InputEvent) -> void:
 		visible = false
 
 func _on_text_submitted(new_text: String) -> void:
-	console_history.add_text("> " + new_text + "\n")
-	console_history.add_text(Console.exec_command(new_text))
+	if Storage.settings.con_echo:
+		console_history.add_text("> " + new_text + "\n")
+	var feedback := Console.exec_command(new_text)
+	for segment in Console.parse_color_tags(feedback):
+		console_history.push_color(segment.color)
+		console_history.add_text(segment.text)
+		console_history.pop()
 	text_input.text = ""
 
 func _on_visibility_changed() -> void:
