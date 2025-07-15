@@ -4,6 +4,8 @@ extends RefCounted
 const CONTROLS_FILE_PATH = "user://controls.json"
 const PLAYER_SKIN_FILE_PATH = "user://skin.png"
 
+static var game: GameManager
+
 static func save_controls() -> void:
 	var controls := {}
 	controls["jump"] = ([] as Array[Key])

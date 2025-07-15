@@ -44,7 +44,7 @@ func _ready() -> void:
 		sprite.scale = Vector2(1, 1)
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
 		jump_counter_newest += 1
 		var jump_number := jump_counter_newest
@@ -62,6 +62,10 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var direction := Input.get_axis("left", "right")
+	var jump_held := Input.is_action_pressed("jump")
+	if Storage.game.menu.menu_active:
+		direction = 0.0
+		jump_held = false
 	
 	coyote_time -= delta
 	if is_on_floor():
@@ -102,7 +106,7 @@ func _physics_process(delta: float) -> void:
 		# Normal gravity
 		else:
 			var gmult := 1.0
-			if Input.is_action_pressed("jump") and velocity.y < 0:
+			if jump_held and velocity.y < 0:
 				gmult *= 0.5
 			velocity.y += GRAVITY * gmult * delta
 	

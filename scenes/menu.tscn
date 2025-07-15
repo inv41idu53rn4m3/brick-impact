@@ -29,4 +29,7 @@ offset_right = 160.0
 offset_bottom = 120.0
 
 [connection signal="controls_requested" from="ConnectionMenu" to="." method="_on_connection_menu_controls_requested"]
+[connection signal="visibility_changed" from="ConnectionMenu" to="." method="_on_menu_visibility_changed"]
 [connection signal="close_requested" from="ControlsMenu" to="." method="_on_controls_menu_close_requested"]
+[connection signal="visibility_changed" from="ControlsMenu" to="." method="_on_menu_visibility_changed"]
+[connection signal="visibility_changed" from="Console" to="." method="_on_menu_visibility_changed"]

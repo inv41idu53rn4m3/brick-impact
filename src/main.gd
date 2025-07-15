@@ -30,6 +30,8 @@ func _ready() -> void:
 	multiplayer.connection_failed.connect(connection_failed)
 	multiplayer.server_disconnected.connect(server_disconnected)
 	
+	Storage.game = self
+	
 	if not is_dedicated_server:
 		menu = preload("res://scenes/menu.tscn").instantiate()
 		self.add_child(menu)

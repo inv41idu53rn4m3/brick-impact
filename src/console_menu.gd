@@ -17,4 +17,5 @@ func _on_text_submitted(new_text: String) -> void:
 
 func _on_visibility_changed() -> void:
 	if visible:
-		text_input.grab_focus.call_deferred()
+		text_input.grab_focus()
+		text_input.edit()
